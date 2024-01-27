@@ -5,7 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int funnyBar = 100;
+    public int funnyBar;
+    private int DEFAULT_FUNNY_BAR = 0;
+    private int MAX_FUNNY_BAR = 100;
     //Reference to cards
     public Card playerCard;
     public List<Card> cards;
@@ -30,6 +32,7 @@ public class Character : MonoBehaviour
             //show card value
             Debug.Log(cards[i].cardValue);
         }
+        funnyBar = DEFAULT_FUNNY_BAR;
         
     }
 
@@ -68,15 +71,11 @@ public class Character : MonoBehaviour
     //     }
     // }
 
-    void _Card_Count(){
+    protected void _Card_Count(){
         cardCounter = cards.Count;
     }
 
-    
-
-    public void _Card_Clicked(Card card)
-    {  
-        //get the index of the card
+    public void _Do_Comedy(Card card){
         if(card == null) return;
         // Check index
         Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
@@ -87,9 +86,20 @@ public class Character : MonoBehaviour
         cardValues.Remove(card.cardValue);
         Debug.Log("Card Count: " + cards.Count);
         // // //Do damge to the character
-        funnyBar -= card.cardValue;
+        fillBar(card.cardValue);
         // // //destroy the card
         Destroy(card.gameObject);
-        // // cardPosition -= new Vector2(5, 0);
+    }
+
+    public void _Use_Skill(){}
+    // public void _Card_Clicked(Card card)
+    // {  
+    //     //get the index of the card
+    //    _Do_Comedy(card);
+    //     // // cardPosition -= new Vector2(5, 0);
+    // }
+
+    private void fillBar(int val){
+        this.funnyBar += val;
     }
 }

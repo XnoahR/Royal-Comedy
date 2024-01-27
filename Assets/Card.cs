@@ -35,7 +35,7 @@ public class Card : MonoBehaviour
     {
         cardButton = GetComponent<Button>();
        Character = GameObject.Find("Player");
-         cardButton.onClick.AddListener(() => Character.GetComponent<Character>()._Card_Clicked(GetComponent<Card>()));
+         cardButton.onClick.AddListener(() => Character.GetComponent<Player>()._Card_Clicked(GetComponent<Card>()));
         // cardButton.onClick.AddListener(_Do_Damage);
        
     }
