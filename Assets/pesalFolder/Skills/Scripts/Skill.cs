@@ -27,4 +27,5 @@ public abstract class Skills : ScriptableObject
     public float cooldown;
     protected bool isCooldown = false;
     public virtual void Activate(){}
+    public virtual void DoCard(Card card){}
 }

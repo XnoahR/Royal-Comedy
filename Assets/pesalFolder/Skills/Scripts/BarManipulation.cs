@@ -11,11 +11,12 @@ public class BarManipulation : Skills
     }
     
     public override void Activate(){
-        if (!isCooldown){
-            Debug.Log("Manipulate BAR!!!");
-        }
-        else{
-            Debug.Log("Cooldown coy");
-        }
+        Debug.Log("Rakyat Kontol!");
+        // if (!isCooldown){
+        //     Debug.Log("Manipulate BAR!!!");
+        // }
+        // else{
+        //     Debug.Log("Cooldown coy");
+        // }
     }
 }

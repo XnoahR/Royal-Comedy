@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : Character
 {
     // Start is called before the first frame update
+   
     void Start()
     {
         
@@ -19,8 +20,16 @@ public class Player : Character
            //remove card
               _Generate_Card();
         }
+        if(Input.GetKeyDown(KeyCode.A)){
+           currentSkillType = SkillType.barEffect;
+        }
+        if(Input.GetKeyDown(KeyCode.S)){
+           currentSkillType = SkillType.attackEffect;
+           Debug.Log("Attack");
+        }
         // Debug.Log("Card Count: " + cards.Count);
         _Card_Count();
+        _Check_Skill();
     }
 
     public void _Card_Clicked(Card card)
