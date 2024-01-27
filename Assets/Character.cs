@@ -65,12 +65,6 @@ public class Character : MonoBehaviour
         addingCard = true;
     }
 
-    // public void _Check_Card_Status(){
-    //     for(int i = 0; i < cards.Count; i++){
-    //        cardValues[i] = cards[i].cardValue;
-    //     }
-    // }
-
     protected void _Card_Count(){
         cardCounter = cards.Count;
     }

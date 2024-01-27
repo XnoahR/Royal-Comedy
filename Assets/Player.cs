@@ -19,7 +19,7 @@ public class Player : Character
            //remove card
               _Generate_Card();
         }
-        Debug.Log("Card Count: " + cards.Count);
+        // Debug.Log("Card Count: " + cards.Count);
         _Card_Count();
     }
 

@@ -15,21 +15,9 @@ public class Card : MonoBehaviour
 
         public Card(int cardValue)
     {
-        //  cardButton = GetComponent<Button>();
-        //  cardButton.onClick.AddListener(_On_Click);
+
         this.cardValue = cardValue;
     }
-
-    // void InitializeCard()
-    // {
-
-    //     cardValue = Random.Range(1, 10);
-    // }
-    // void Start()
-    // {
-    //     cardValue = Random.Range(1, 10);
-    //     // cardImage = Resources.Load<Sprite>("card" + cardValue);
-    // }
 
     void Start()
     {
@@ -46,18 +34,6 @@ public class Card : MonoBehaviour
         
     }
 
-    //get on click event
-    // public void _On_Click()
-    // {
-    //     //get the character
-    //     GameObject character = GameObject.Find("Player");
-    //     //get the character script
-    //     Character characterScript = character.GetComponent<Character>();
-    //     //subtract the card value from the funny bar
-    //     characterScript.funnyBar -= cardValue;
-    //     //destroy the card
-    //     Destroy(gameObject);
-    // }
 
     public void _Do_Damage(int cardValue)
     {

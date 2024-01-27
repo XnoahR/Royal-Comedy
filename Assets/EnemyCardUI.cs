@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCardUI : MonoBehaviour
+public class EnemyCardUI : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject Player;
-    public Player playerScript;
+    public GameObject Enemy;
+    public Enemy enemyScript;
     public List<Card> cards;
     //list of card values
     public List<int> cardValues;
@@ -18,12 +18,21 @@ public class PlayerCardUI : MonoBehaviour
     private bool isDrawCard = false;
     void Awake()
     {
-        Player = GameObject.Find("Player");
-
+        Enemy = GameObject.Find("Enemy");
+        //get card prefabs
+        
+        
+        //get cardvalues from the cards
     }
     void Start(){
-        playerScript = Player.GetComponent<Player>();
+        enemyScript = Enemy.GetComponent<Enemy>();
         _Print_Card();
+        // cardPrefab = Resources.Load<GameObject>("Card");
+        //reference to the card Lists
+        // cards = playerScript.cards;
+      
+    // previousCardCount = cards.Count;
+    // Debug.Log("Previous Card Count: " + previousCardCount);
 }
 
 
@@ -31,8 +40,8 @@ public class PlayerCardUI : MonoBehaviour
     void Update()
     {
         _Check_Card();
-        if(Player.GetComponent<Player>().addingCard){
-            Player.GetComponent<Player>().addingCard = false;
+        if(Enemy.GetComponent<Enemy>().addingCard){
+            Enemy.GetComponent<Enemy>().addingCard = false;
             _Print_Single_Card();
         }   
         // _Check_Card_Count();
@@ -42,14 +51,14 @@ public class PlayerCardUI : MonoBehaviour
     void _Print_Single_Card(){
         //print single card from last index
         //get the card list from the character script
-        cards = playerScript.cards;
+        cards = enemyScript.cards;
         //get the card values from the character script
-        cardValues = playerScript.cardValues;
+        cardValues = enemyScript.cardValues;
         //get the last index of the card list
         int lastIndex = cards.Count - 1;
         //instantiate the card prefab
         GameObject cardObject = Instantiate(cardPrefab, transform);
-        Player.GetComponent<Player>().cards[lastIndex] = cardObject.GetComponent<Card>();
+        Enemy.GetComponent<Enemy>().cards[lastIndex] = cardObject.GetComponent<Card>();
         //give the name to the card unique random name
         cardObject.name = "Card " + Random.Range(1, 10000);
         //get the card script
@@ -62,13 +71,13 @@ public class PlayerCardUI : MonoBehaviour
     //Instantiate the cards based on the list of card that connected to the character script
      void _Print_Card(){
         //get the card list from the character script
-        cards = playerScript.cards;
+        cards = enemyScript.cards;
         //get the card values from the character script
-        cardValues = playerScript.cardValues;
+        cardValues = enemyScript.cardValues;
         //instantiate the cards based on the list of card and give the name to the card
         for(int i = 0; i < cards.Count; i++){
             GameObject cardObject = Instantiate(cardPrefab, transform);
-            Player.GetComponent<Player>().cards[i] = cardObject.GetComponent<Card>();
+            Enemy.GetComponent<Enemy>().cards[i] = cardObject.GetComponent<Card>();
             //give the name to the card
             cardObject.name = "Card " + i;
             //get the card script
@@ -105,8 +114,8 @@ public class PlayerCardUI : MonoBehaviour
     // }
 
     void _Check_Card(){
-        cards = playerScript.cards;
-        cardValues = playerScript.cardValues;
+        cards = enemyScript.cards;
+        cardValues = enemyScript.cardValues;
         cardCount = cards.Count;
     }
 }
