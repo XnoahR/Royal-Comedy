@@ -18,7 +18,7 @@ public enum SkillOperation{
 
 public abstract class Skills : ScriptableObject
 {
-    public string skillName;
+    public int skillValue;
     public SkillType skillType;
     public SkillOperation skillOperation;
     public GameObject prefab;

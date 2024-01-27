@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9caa8203f15e7ee45a237ac0b5ba8c77, type: 3}
-  m_Name: Advance Action
+  m_Script: {fileID: 11500000, guid: e72f0cb9932626a4f85e2f671161484c, type: 3}
+  m_Name: Plus Two Attack
   m_EditorClassIdentifier: 
-  skillValue: 4
+  skillValue: 0
   skillType: 0
-  skillOperation: 1
+  skillOperation: 0
   prefab: {fileID: 0}
-  description: Immediately take action again after using this skill.
-  cooldown: 5
+  description: 
+  cooldown: 0
