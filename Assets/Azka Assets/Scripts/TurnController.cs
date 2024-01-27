@@ -31,23 +31,23 @@ public class TurnController : MonoBehaviour
 
     void SwitchTurn()
     {
-        if(isPlayerTurn)
+        if (isPlayerTurn)
         {
             StartCoroutine(EndPlayerTurn());
-            //StartEnemyTurn();
+            Debug.Log("Player to enemy switch");
         }
         else
         {
             StartCoroutine(EndEnemyTurn());
-            //StartPlayerTurn();
+            Debug.Log("Enemy to Player switch");
+
         }
     }
 
     void StartPlayerTurn()
     {
-        Debug.Log("Players turn");
+        Debug.Log("Player's turn");
         hero.GetComponent<PlayerScript>().enabled = true;
-        enemy.GetComponent<EnemyController>().enabled = false;
 
         isPlayerTurn = true;
     }
@@ -57,6 +57,7 @@ public class TurnController : MonoBehaviour
         turnText.text = "Enemy's turn";
         hero.GetComponent<PlayerScript>().enabled = false;
         Debug.Log("Enemy's turn");
+
         yield return new WaitForSeconds(1f);
 
         turnText.text = "";
@@ -65,11 +66,11 @@ public class TurnController : MonoBehaviour
 
     void StartEnemyTurn()
     {
-        Debug.Log("Enemy's turn");
-        hero.GetComponent<PlayerScript>().enabled = false;
+        Debug.Log("Enemy's turn start");
         enemy.GetComponent<EnemyController>().enabled = true;
 
         isPlayerTurn = false;
+        Debug.Log("Enemy's is movving or not");
     }
 
     IEnumerator EndEnemyTurn()
@@ -83,6 +84,7 @@ public class TurnController : MonoBehaviour
         turnText.text = "";
         StartPlayerTurn();
     }
+
     IEnumerator RemoveTextAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
