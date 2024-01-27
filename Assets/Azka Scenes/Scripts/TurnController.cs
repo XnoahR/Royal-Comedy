@@ -1,41 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class TurnController : MonoBehaviour
 {
 
     public GameObject hero;
     public GameObject enemy;
+    public TextMeshProUGUI turnText;
 
     private bool isPlayerTurn = true;
     // Start is called before the first frame update
     void Start()
     {
         StartPlayerTurn();
+        turnText.text = "Player's turn";
+        StartCoroutine(RemoveTextAfterDelay(1f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             SwitchTurn();
         }
-        
     }
 
     void SwitchTurn()
     {
         if(isPlayerTurn)
         {
-            EndPlayerTurn();
-            StartEnemyTurn();
+            StartCoroutine(EndPlayerTurn());
+            //StartEnemyTurn();
         }
         else
         {
-            EndEnemyTurn();
-            StartPlayerTurn();
+            StartCoroutine(EndEnemyTurn());
+            //StartPlayerTurn();
         }
     }
 
@@ -45,12 +49,18 @@ public class TurnController : MonoBehaviour
         hero.GetComponent<PlayerScript>().enabled = true;
         enemy.GetComponent<EnemyController>().enabled = false;
 
-        isPlayerTurn = true; 
+        isPlayerTurn = true;
     }
 
-    void EndPlayerTurn()
+    IEnumerator EndPlayerTurn()
     {
+        turnText.text = "Enemy's turn";
         hero.GetComponent<PlayerScript>().enabled = false;
+        Debug.Log("Enemy's turn");
+        yield return new WaitForSeconds(1f);
+
+        turnText.text = "";
+        StartEnemyTurn();
     }
 
     void StartEnemyTurn()
@@ -60,12 +70,22 @@ public class TurnController : MonoBehaviour
         enemy.GetComponent<EnemyController>().enabled = true;
 
         isPlayerTurn = false;
-
     }
 
-    void EndEnemyTurn()
+    IEnumerator EndEnemyTurn()
     {
-        // Disable enemy AI control, hide UI, etc.
+        turnText.text = "Player's turn";
         enemy.GetComponent<EnemyController>().enabled = false;
+        Debug.Log("Player's Turn");
+
+        yield return new WaitForSeconds(1f);
+
+        turnText.text = "";
+        StartPlayerTurn();
+    }
+    IEnumerator RemoveTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        turnText.text = string.Empty;  // Set the text to an empty string to remove it
     }
 }
