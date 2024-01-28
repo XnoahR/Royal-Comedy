@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class Enemy : Character
 {
- 
+    public static bool hasMoved = true;
     void Update()
     {
          // _Check_Card_Status();
-        if(Input.GetKeyDown(KeyCode.C)){
-           //remove card
-              _Generate_Card();
-        }
-        if(Input.GetKeyDown(KeyCode.D)){
-            //pick a random card
-            // _Random_Pick();
+        if (!hasMoved){
+            _Generate_Card();
             StartCoroutine(_Random_Pick_Coroutine());
-        }
-        // Debug.Log("Enemy Card Count: " + cards.Count);
-        _Card_Count();
+            }
+            // Debug.Log("Enemy Card Count: " + cards.Count);
+            _Card_Count();
+            hasMoved = true;
     }
 
     //coroutine 
@@ -29,7 +25,8 @@ public class Enemy : Character
         yield return new WaitForSeconds(2.0f);
         if(cards.Count == 1) _Do_Comedy(cards[0]);
         else _Do_Comedy(cards[randomCard-1]);
-  
+        StartCoroutine(gameMasterObject.EnemyTurn());
+
         Debug.Log("Random Card: " + cards[randomCard-1].cardValue + " Card Count: " + cards.Count);
     }
 }

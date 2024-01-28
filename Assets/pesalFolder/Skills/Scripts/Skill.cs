@@ -24,7 +24,17 @@ public abstract class Skills : ScriptableObject
     public GameObject prefab;
     [TextArea(10, 20)]
     public string description;
-    public float cooldown;
-    protected bool isCooldown = false;
+    public int cooldown;
+    public bool isCooldown = false;
+    public int cooldownDiff;
     public virtual void Activate(){}
+    public void checkCooldown(){
+        int currentTurn = GameMaster.playerPace;
+        if (currentTurn - cooldown < cooldownDiff){
+            return;
+        }
+        else{
+            isCooldown = false;
+        }
+    }
 }
