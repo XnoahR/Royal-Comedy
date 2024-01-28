@@ -16,7 +16,7 @@ public class SkillContainer : MonoBehaviour
     //Create function to manipulate buttons' text
 
     // Update is called once per frame
-    void Start()
+    void Awake()
     {
         foreach(Button btn in buttons){
             btn.onClick.AddListener (()=> recordSkillButton(btn));
@@ -45,6 +45,8 @@ public class SkillContainer : MonoBehaviour
     void UpdateSkillCons(){
       for(int i = 0; i < skillObjectInfo.Length; i++){
         skillObjectInfo[i] = skillObjects[i];
+        buttons[i].GetComponent<SkillButton>().skill = skillObjects[i]; 
+        buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
       }
     }
 }

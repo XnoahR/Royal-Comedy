@@ -14,7 +14,7 @@ public abstract class ButtonParent : MonoBehaviour
     public TMP_Text cdText;
 
     // Update is called once per frame
-    protected void _Setup_Buttons(){
+    public void _Setup_Buttons(){
         if (skill != null){
             valText.text = skill.skillValue.ToString();
             cdText.text = skill.cooldown.ToString();
