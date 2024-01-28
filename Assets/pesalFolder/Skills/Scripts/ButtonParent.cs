@@ -15,10 +15,18 @@ public abstract class ButtonParent : MonoBehaviour
 
     // Update is called once per frame
     public void _Setup_Buttons(){
-        if (skill != null){
-            valText.text = skill.skillValue.ToString();
-            cdText.text = skill.cooldown.ToString();
-            typeText.text = skill.skillType.ToString();
+        Sprite skillSprite = Resources.Load<Sprite>("Skills/"+ skill.skillType.ToString());
+        if (skillSprite != null){
+            button.GetComponent<Button>().GetComponent<Image>().sprite = skillSprite;
+        }
+        // Debug.Log(skillSprite);
+        // if (skill != null){
+        //     valText.text = skill.skillValue.ToString();
+        //     cdText.text = skill.cooldown.ToString();
+        //     typeText.text = skill.skillType.ToString();
+        //     if (skillSprite != null){
+        //         button.GetComponent<Button>().GetComponent<Image>().sprite = skillSprite;
+        //     }
         }
         // switch (skill.skillType){
         //     case SkillType.turnEffect:
@@ -35,4 +43,4 @@ public abstract class ButtonParent : MonoBehaviour
         //         break;
         // }
     }
-}
+

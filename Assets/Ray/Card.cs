@@ -22,9 +22,12 @@ public class Card : MonoBehaviour
     void Start()
     {
         cardButton = GetComponent<Button>();
+
        Character = GameObject.Find("Player");
        cardButton.onClick.RemoveAllListeners();
          cardButton.onClick.AddListener(() => Character.GetComponent<Player>()._Card_Clicked(GetComponent<Card>()));
+         Sprite sp = Resources.Load<Sprite>("Cards/" + cardValue);
+            cardButton.GetComponent<Image>().sprite = sp;
         // cardButton.onClick.AddListener(_Do_Damage);
        
     }

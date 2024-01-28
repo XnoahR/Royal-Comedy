@@ -45,8 +45,12 @@ public class SkillContainer : MonoBehaviour
     void UpdateSkillCons(){
       for(int i = 0; i < skillObjectInfo.Length; i++){
         skillObjectInfo[i] = skillObjects[i];
-        buttons[i].GetComponent<SkillButton>().skill = skillObjects[i]; 
-        buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
+        if (skillObjects[i] != null){
+          buttons[i].GetComponent<SkillButton>().skill = skillObjects[i];
+          buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
+        }
+        // buttons[i].GetComponent<SkillButton>().skill = skillObjects[i]; 
+        // buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
       }
     }
 }
