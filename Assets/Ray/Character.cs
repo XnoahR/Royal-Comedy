@@ -5,6 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameMaster gameMasterObject;
     public int funnyBar;
     private int DEFAULT_FUNNY_BAR = 0;
     private int MAX_FUNNY_BAR = 100;
@@ -93,7 +94,7 @@ public class Character : MonoBehaviour
     //     // // cardPosition -= new Vector2(5, 0);
     // }
 
-    private void fillBar(int val){
+    public void fillBar(int val){
         this.funnyBar += val;
     }
 }
