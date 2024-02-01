@@ -16,11 +16,21 @@ public class SkillContainer : MonoBehaviour
     //Create function to manipulate buttons' text
 
     // Update is called once per frame
-    void Start()
+    void Awake()
     {
         foreach(Button btn in buttons){
             btn.onClick.AddListener (()=> recordSkillButton(btn));
         }
+        
+            skillObjects[0] = new AttackEffect();
+            skillObjects[0].cooldown = 3;
+            skillObjects[1] = new TurnManipulation();
+            skillObjects[1].cooldown = 2;
+            skillObjects[2] = new BarManipulation();
+            skillObjects[2].cooldown = 3;
+            skillObjects[3] = new CardManipulation();
+            skillObjects[3].cooldown = 4;
+        
     }
 
     void Update(){
@@ -35,6 +45,12 @@ public class SkillContainer : MonoBehaviour
     void UpdateSkillCons(){
       for(int i = 0; i < skillObjectInfo.Length; i++){
         skillObjectInfo[i] = skillObjects[i];
+        if (skillObjects[i] != null){
+          buttons[i].GetComponent<SkillButton>().skill = skillObjects[i];
+          buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
+        }
+        // buttons[i].GetComponent<SkillButton>().skill = skillObjects[i]; 
+        // buttons[i].GetComponent<SkillButton>()._Setup_Buttons();
       }
     }
 }
