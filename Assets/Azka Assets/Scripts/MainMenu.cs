@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     public void playButtonClick()
     {
-        SceneManager.LoadScene("scene_turn");
+        SceneManager.LoadScene(1);
     }
     // Start is called before the first frame update
     public void optionsButtonClick()

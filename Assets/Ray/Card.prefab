@@ -283,4 +283,4 @@ MonoBehaviour:
   cardValue: 0
   cardButton: {fileID: 0}
   Character: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardBackImage: {fileID: 21300000, guid: c4dff7a563d55ea4ebc37bc704bcb801, type: 3}

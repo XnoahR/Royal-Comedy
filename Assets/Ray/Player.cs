@@ -38,8 +38,9 @@ public class Player : Character
         if (!hasClicked)
         {
             hasClicked = true;
+            Debug.Log("Player Attacks!");
             _Do_Comedy(card);
-            StartCoroutine(gameMasterObject.PlayerTurn());
+            // StartCoroutine(gameMasterObject.PlayerTurn());
         }
         // // cardPosition -= new Vector2(5, 0);
     }
@@ -101,7 +102,8 @@ public class Player : Character
             // // //Do damge to the character
             fillBar(card.cardValue);
             // // //destroy the card
-            Destroy(card.gameObject);
+            // Destroy(card.gameObject);
+            StartCoroutine(card.RotateCard(0f, 720f, 1f));
         }
         if (selectedSkill != null)
         {
@@ -120,7 +122,8 @@ public class Player : Character
                     // // //Do damge to the character
                     fillBar(card.cardValue * selectedSkill.skillValue);
                     // // //destroy the card
-                    Destroy(card.gameObject);
+                    // Destroy(card.gameObject);
+                    StartCoroutine(card.RotateCard(0f, 720f, 1f));
                     set_cooldown();
                     break;
                 case SkillType.cardEffect:
@@ -134,7 +137,8 @@ public class Player : Character
                     // // //Do damge to the character
                     fillBar(card.cardValue);
                     // // //destroy the card
-                    Destroy(card.gameObject);
+                    // Destroy(card.gameObject);
+                    StartCoroutine(card.RotateCard(0f, 720f, 1f));
                     Debug.Log("Card Effect");
                     _Generate_Card();
                     set_cooldown();
@@ -152,10 +156,11 @@ public class Player : Character
                     // // //Do damge to the character
                     fillBar(card.cardValue);
                     // // //destroy the card
-                    Destroy(card.gameObject);
+                    // Destroy(card.gameObject);
                     GameMaster.skipTurns = true;
+                    StartCoroutine(card.RotateCard(0f, 720f, 1f));
                     set_cooldown();
-                    selectedSkill = null;
+                    // selectedSkill = null;
                     break;
                 case SkillType.barEffect:
                     //get Enemy
@@ -165,11 +170,13 @@ public class Player : Character
                     //get Enemy Bar
                     enemyScript2.funnyBar -= selectedSkill.skillValue;
                     set_cooldown();
-                    StartCoroutine(gameMasterObject.PlayerTurn());
+                    // StartCoroutine(gameMasterObject.PlayerTurn());
                     break;
                     // default:
                     //     Debug.Log("No Skill Selected");
                     //     break;
+                default:
+                    break;
             }
             // case se
         }

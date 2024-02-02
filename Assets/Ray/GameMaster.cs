@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum GameState{
@@ -19,8 +20,11 @@ public class GameMaster : MonoBehaviour
     public static bool skipTurns = false;
     //array of objects card
     public GameObject[] cards = new GameObject[5];
+    public GameObject panelOverlay;
+    public Canvas canvas;
     public Player player;
     public Enemy enemy;
+    public TMP_Text turnText;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,27 +34,35 @@ public class GameMaster : MonoBehaviour
 
     public IEnumerator BattleStart(){
         //battle begin! setup arena, dll.
+        turnText.text = "GAME START!";
         totalTurns = 0;
         enemyPace = 0;
         playerPace = 0;
         yield return new WaitForSeconds(2f);
         currentState = GameState.playerTurn;
+        StartCoroutine(PlayerTurn());
     }
 
     public IEnumerator PlayerTurn(){
-        Debug.Log("from master, enemy: "+Player.hasClicked);
+        player._Generate_Card();
+        // foreach(Skills skill in SkillContainer.skillObjects){
+        //     if (skill.cooldownDiff > 0){
+        //         skill.cooldownDiff -= 1;
+        //     }
+        //     else{
+        //         skill.isCooldown = false;
+        //     }
+        // }
+
+        _Check_Cooldown();
+
+        //add play animation here
+        yield return new WaitUntil(() => Player.hasClicked);
+        Debug.Log("Player clicked. Coroutine continues.");
+
         playerPace += 1;
         totalTurns += 1;
-        foreach(Skills skill in SkillContainer.skillObjects){
-            if (skill.cooldownDiff > 0){
-                skill.cooldownDiff -= 1;
-            }
-            else{
-                skill.isCooldown = false;
-            }
-        }
-        //add play animation here
-        yield return new WaitForSeconds(1f);
+
         if (player.funnyBar >= 100) {
             currentState = GameState.WIN;
             StartCoroutine(GameWin());
@@ -60,15 +72,16 @@ public class GameMaster : MonoBehaviour
             skipTurns = false;
             currentState = GameState.playerTurn;
             Player.hasClicked = false;
+            StartCoroutine(PlayerTurn());
         }
         else {
             currentState = GameState.enemyTurn;
             Enemy.hasMoved = false;
+            turnText.text = "Enemy Turn";
         }
 
     }
     public IEnumerator EnemyTurn(){
-        Debug.Log("from master, enemy: "+Player.hasClicked);
         enemyPace += 1;
         totalTurns += 1;
         yield return new WaitForSeconds(0.5f);
@@ -83,18 +96,35 @@ public class GameMaster : MonoBehaviour
         }
         else{
             currentState = GameState.playerTurn;
-            player._Generate_Card();
+            turnText.text = "Player Turn";
+            Player.hasClicked = false;
+            StartCoroutine(PlayerTurn());
         }
-        Player.hasClicked = false;
     }
     public IEnumerator GameWin(){
-        Debug.Log("YOU WIN");
+        var panel = Instantiate(panelOverlay, canvas.transform);
+        panel.GetComponent<PanelOverlay>().overlayText.text = "YOU WIN";
         yield return new WaitForSeconds(0.5f);
         Debug.Log("ya");
     }
     public IEnumerator GameLose(){
-        Debug.Log("YOU WI-");
+        var panel = Instantiate(panelOverlay, canvas.transform);
+        panel.GetComponent<PanelOverlay>().overlayText.text = "YOU WI-";
         yield return new WaitForSeconds(1f);
-        Debug.Log("TAPI UPIT KAOWKAWOKAOWK");
+        panel.GetComponent<PanelOverlay>().overlayText.text = "TAPI UPIT KAOWKAWOKAOWK";
+    }
+
+    void _Check_Cooldown(){
+        for(int i = 0; i < SkillContainer.skillObjects.Length; i++){
+            Skills skill = SkillContainer.skillObjects[i];
+            if (skill != null){
+                if (skill.cooldownDiff > 0 && skill.isCooldown){
+                    skill.cooldownDiff -= 1;
+                }
+                else{
+                    skill.isCooldown = false;
+                } 
+            }
+        }
     }
 }
