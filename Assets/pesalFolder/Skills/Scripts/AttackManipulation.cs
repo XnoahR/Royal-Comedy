@@ -12,7 +12,23 @@ public class AttackEffect : Skills
 
     public override void Activate(){
         if(!isCooldown){
-            Debug.Log("Increase attak");
+            float finalValue = 0;
+            switch (skillOperation){
+                case SkillOperation.increase:
+                    finalValue = skillValue;
+                    break;
+                case SkillOperation.decrease:
+                    finalValue = -(skillValue);
+                    break;
+                case SkillOperation.multiply:
+                    finalValue = Player.selectedCard.cardValue * (skillValue - 1);
+                    break;
+                case SkillOperation.divide:
+                    finalValue = -(Player.selectedCard.cardValue/skillValue);
+                    break;
+            }
+            isCooldown = true;
+            Player.selectedCard.cardValue += (int)finalValue;
         }
         else{
             Debug.Log("Cooldown cuy");

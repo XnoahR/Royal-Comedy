@@ -12,11 +12,11 @@ public class TurnManipulation : Skills
     
     public override void Activate(){
         if (!isCooldown){
-            Debug.Log("Manipulate TURN!!!");
+            GameMaster.skipTurns = true;
             isCooldown = true;
         }
         else{
-            checkCooldown();
+            //checkCooldown();
         }
     }
 }

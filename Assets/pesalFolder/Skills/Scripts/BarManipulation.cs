@@ -12,7 +12,11 @@ public class BarManipulation : Skills
     
     public override void Activate(){
         if (!isCooldown){
-            Debug.Log("Manipulate BAR!!!");
+            GameObject enemy2 = GameObject.Find("Enemy");
+            //get Enemy Script
+            Enemy enemyScript2 = enemy2.GetComponent<Enemy>();
+            //get Enemy Bar
+            enemyScript2.funnyBar -= skillValue;
         }
         else{
             Debug.Log("Cooldown coy");
