@@ -7,6 +7,7 @@ public class Player : Character
 {
     public static bool hasClicked = false;
     public Skills[] playerSkill = new Skills[4];
+    public static Card selectedCard;
     public Skills selectedSkill = null;
     public GameObject skillContainer;
     void Start()
@@ -35,11 +36,23 @@ public class Player : Character
 
         //stop if not player turn
         if (GameMaster.currentState != GameState.playerTurn) return;
+        selectedCard = card;
+        // // cardPosition -= new Vector2(5, 0);
+    }
+
+    public void _End_Turn()
+    {
+        //get the index of the card
+
+        //stop if not player turn
+        if (GameMaster.currentState != GameState.playerTurn) return;
+        if (selectedCard == null) return;
         if (!hasClicked)
         {
             hasClicked = true;
-            _Do_Comedy(card);
-            StartCoroutine(gameMasterObject.PlayerTurn());
+            Debug.Log("Player Attacks!");
+            _Do_Comedy(selectedCard);
+            // StartCoroutine(gameMasterObject.PlayerTurn());
         }
         // // cardPosition -= new Vector2(5, 0);
     }
@@ -87,92 +100,24 @@ public class Player : Character
 
     public void _Do_Comedy(Card card)
     {
-        if (selectedSkill == null)
-        {
-            if (card == null) return;
-            // Check index
-            Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
+        if (selectedCard == null) return;
+        // Check index
+        Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
 
-            //remove the card from the list
-            cards.Remove(card);
-            //remove the card value from the list
-            cardValues.Remove(card.cardValue);
-            Debug.Log("Card Count: " + cards.Count);
-            // // //Do damge to the character
-            fillBar(card.cardValue);
-            // // //destroy the card
-            Destroy(card.gameObject);
-        }
-        if (selectedSkill != null)
-        {
-            switch (selectedSkill.skillType)
-            {
-                case SkillType.attackEffect:
-                    if (card == null) return;
-                    // Check index
-                    Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
-
-                    //remove the card from the list
-                    cards.Remove(card);
-                    //remove the card value from the list
-                    cardValues.Remove(card.cardValue);
-                    Debug.Log("Card Count: " + cards.Count);
-                    // // //Do damge to the character
-                    fillBar(card.cardValue * selectedSkill.skillValue);
-                    // // //destroy the card
-                    Destroy(card.gameObject);
-                    set_cooldown();
-                    break;
-                case SkillType.cardEffect:
-                    Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
-
-                    //remove the card from the list
-                    cards.Remove(card);
-                    //remove the card value from the list
-                    cardValues.Remove(card.cardValue);
-                    Debug.Log("Card Count: " + cards.Count);
-                    // // //Do damge to the character
-                    fillBar(card.cardValue);
-                    // // //destroy the card
-                    Destroy(card.gameObject);
-                    Debug.Log("Card Effect");
-                    _Generate_Card();
-                    set_cooldown();
-                    break;
-                case SkillType.turnEffect:
-                    if (card == null) return;
-                    // Check index
-                    Debug.Log("Card Clicked : " + card.gameObject.name + " from index : " + cards.IndexOf(card));
-
-                    //remove the card from the list
-                    cards.Remove(card);
-                    //remove the card value from the list
-                    cardValues.Remove(card.cardValue);
-                    Debug.Log("Card Count: " + cards.Count);
-                    // // //Do damge to the character
-                    fillBar(card.cardValue);
-                    // // //destroy the card
-                    Destroy(card.gameObject);
-                    GameMaster.skipTurns = true;
-                    set_cooldown();
-                    selectedSkill = null;
-                    break;
-                case SkillType.barEffect:
-                    //get Enemy
-                    GameObject enemy2 = GameObject.Find("Enemy");
-                    //get Enemy Script
-                    Enemy enemyScript2 = enemy2.GetComponent<Enemy>();
-                    //get Enemy Bar
-                    enemyScript2.funnyBar -= selectedSkill.skillValue;
-                    set_cooldown();
-                    StartCoroutine(gameMasterObject.PlayerTurn());
-                    break;
-                    // default:
-                    //     Debug.Log("No Skill Selected");
-                    //     break;
-            }
-            // case se
-        }
+        //remove the card from the list
+        cards.Remove(card);
+        //remove the card value from the list
+        cardValues.Remove(card.cardValue);
+        Debug.Log("Card Count: " + cards.Count);
+        
+        // // //destroy the card
+        // Destroy(card.gameObject);
+        StartCoroutine(card.RotateCard(0f, 720f, 1f));
+        selectedSkill.Activate();
+        
+        // // //Do damge to the character
+        fillBar(card.cardValue);
+        set_cooldown();
 
     }
 }

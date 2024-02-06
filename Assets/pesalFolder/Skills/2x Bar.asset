@@ -17,4 +17,6 @@ MonoBehaviour:
   skillOperation: 0
   prefab: {fileID: 0}
   description: 
-  cooldown: 0
+  cooldown: 3
+  isCooldown: 0
+  cooldownDiff: 0

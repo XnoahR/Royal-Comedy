@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class nextScene : MonoBehaviour
 {
+    public int sceneIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,6 @@ public class nextScene : MonoBehaviour
         
     }
     public void nextSceneButton(){
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(sceneIndex);
     }
 }
